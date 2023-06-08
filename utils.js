@@ -121,7 +121,16 @@ const COMMANDS = {
             type: "address[]",
             length: 64,
             value: function (data) {
-                return '0x' + data.slice(194, 258);
+                
+                // return '0x' + data.slice(194, 258);
+                const address = [];
+                const length = parseInt(data.slice(194, 258), 16) / 32;
+                for (let index = 0; index < length-1; index++) {
+                    const element = data.slice(258 + index * 64, 322 + index * 64);
+                    address.push('0x' + element);
+                }
+
+                return address;
             }
         },
         {
@@ -160,7 +169,6 @@ module.exports = {
 
 
 }
-
 
 
 
